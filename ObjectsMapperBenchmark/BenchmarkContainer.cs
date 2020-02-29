@@ -1,11 +1,11 @@
-﻿using System.IO;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using BenchmarkDotNet.Attributes;
 using Mapster;
 using Nelibur.ObjectMapper;
 using ObjectsMapperBenchmark.Dto;
 using ObjectsMapperBenchmark.Entities;
+using System.IO;
+using System.Linq;
 
 namespace ObjectsMapperBenchmark
 {
@@ -79,6 +79,7 @@ namespace ObjectsMapperBenchmark
 
             //Mapster don't need configuration
             //AgileMapper don't need configuration
+            //UltraMapper don't need configuration
         }
 
         [Benchmark]
@@ -121,6 +122,14 @@ namespace ObjectsMapperBenchmark
         public SpotifyAlbum MapWithMapster()
         {
             var spotifyalbum = _spotifyAlbumDto.Adapt<SpotifyAlbum>();
+            return spotifyalbum;
+        }
+
+        [Benchmark]
+        public SpotifyAlbum MapWithUltraMapper()
+        {
+            var mapper = new UltraMapper.Mapper();
+            var spotifyalbum = mapper.Map<SpotifyAlbumDto, SpotifyAlbum>(_spotifyAlbumDto);
             return spotifyalbum;
         }
     }

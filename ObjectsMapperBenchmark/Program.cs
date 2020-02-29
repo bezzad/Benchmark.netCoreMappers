@@ -1,4 +1,5 @@
 ﻿using System;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 
 namespace ObjectsMapperBenchmark
@@ -7,7 +8,8 @@ namespace ObjectsMapperBenchmark
     {
         static void Main(string[] args)
         {
-            var res = BenchmarkRunner.Run<BenchmarkContainer>();
+            var config = DefaultConfig.Instance.With(ConfigOptions.DisableOptimizationsValidator);
+            var res = BenchmarkRunner.Run<BenchmarkContainer>(config);
             Console.ReadLine();
         }
     }
