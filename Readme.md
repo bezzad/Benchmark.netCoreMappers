@@ -17,4 +17,4 @@ dotnet run --configuration Release
 
 ## Result
 **Tip** : AgileMapper mean time was different (about 1,900 or 15,000 ns) in several times!
-![Benchmark](https://raw.githubusercontent.com/mjebrahimi/Benchmark.netCoreMappers/master/benchmark.png)
+![Benchmark](https://github.com/bezzad/Benchmark.netCoreMappers/raw/master/benchmark.png)
