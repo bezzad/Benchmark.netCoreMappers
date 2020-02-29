@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BenchmarkDotNet.Attributes;
 using Mapster;
-using Nelibur.ObjectMapper;
 using ObjectsMapperBenchmark.Dto;
 using ObjectsMapperBenchmark.Entities;
 using System.IO;
@@ -42,40 +41,40 @@ namespace ObjectsMapperBenchmark
             _autoMapper = mapperConfig.CreateMapper();
 
             //TinyMapper Configuration 
-            TinyMapper.Bind<SpotifyAlbumDto, SpotifyAlbum>();
-            TinyMapper.Bind<CopyrightDto, Copyright>();
-            TinyMapper.Bind<ArtistDto, Artist>();
-            TinyMapper.Bind<ExternalIdsDto, ExternalIds>();
-            TinyMapper.Bind<ExternalUrlsDto, ExternalUrls>();
-            TinyMapper.Bind<TracksDto, Tracks>();
-            TinyMapper.Bind<ImageDto, Image>();
-            TinyMapper.Bind<ItemDto, Item>();
-            TinyMapper.Bind<SpotifyAlbum, SpotifyAlbumDto>();
-            TinyMapper.Bind<Copyright, CopyrightDto>();
-            TinyMapper.Bind<Artist, ArtistDto>();
-            TinyMapper.Bind<ExternalIds, ExternalIdsDto>();
-            TinyMapper.Bind<ExternalUrls, ExternalUrlsDto>();
-            TinyMapper.Bind<Tracks, TracksDto>();
-            TinyMapper.Bind<Image, ImageDto>();
-            TinyMapper.Bind<Item, ItemDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<SpotifyAlbumDto, SpotifyAlbum>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<CopyrightDto, Copyright>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ArtistDto, Artist>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ExternalIdsDto, ExternalIds>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ExternalUrlsDto, ExternalUrls>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<TracksDto, Tracks>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ImageDto, Image>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ItemDto, Item>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<SpotifyAlbum, SpotifyAlbumDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<Copyright, CopyrightDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<Artist, ArtistDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ExternalIds, ExternalIdsDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<ExternalUrls, ExternalUrlsDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<Tracks, TracksDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<Image, ImageDto>();
+            Nelibur.ObjectMapper.TinyMapper.Bind<Item, ItemDto>();
 
             //ExpressMapper Configuration 
-            ExpressMapper.Mapper.Register<SpotifyAlbumDto, SpotifyAlbum>();
-            ExpressMapper.Mapper.Register<CopyrightDto, Copyright>();
-            ExpressMapper.Mapper.Register<ArtistDto, Artist>();
-            ExpressMapper.Mapper.Register<ExternalIdsDto, ExternalIds>();
-            ExpressMapper.Mapper.Register<ExternalUrlsDto, ExternalUrls>();
-            ExpressMapper.Mapper.Register<TracksDto, Tracks>();
-            ExpressMapper.Mapper.Register<ImageDto, Image>();
-            ExpressMapper.Mapper.Register<ItemDto, Item>();
-            ExpressMapper.Mapper.Register<SpotifyAlbum, SpotifyAlbumDto>();
-            ExpressMapper.Mapper.Register<Copyright, CopyrightDto>();
-            ExpressMapper.Mapper.Register<Artist, ArtistDto>();
-            ExpressMapper.Mapper.Register<ExternalIds, ExternalIdsDto>();
-            ExpressMapper.Mapper.Register<ExternalUrls, ExternalUrlsDto>();
-            ExpressMapper.Mapper.Register<Tracks, TracksDto>();
-            ExpressMapper.Mapper.Register<Image, ImageDto>();
-            ExpressMapper.Mapper.Register<Item, ItemDto>();
+            global::ExpressMapper.Mapper.Register<SpotifyAlbumDto, SpotifyAlbum>();
+            global::ExpressMapper.Mapper.Register<CopyrightDto, Copyright>();
+            global::ExpressMapper.Mapper.Register<ArtistDto, Artist>();
+            global::ExpressMapper.Mapper.Register<ExternalIdsDto, ExternalIds>();
+            global::ExpressMapper.Mapper.Register<ExternalUrlsDto, ExternalUrls>();
+            global::ExpressMapper.Mapper.Register<TracksDto, Tracks>();
+            global::ExpressMapper.Mapper.Register<ImageDto, Image>();
+            global::ExpressMapper.Mapper.Register<ItemDto, Item>();
+            global::ExpressMapper.Mapper.Register<SpotifyAlbum, SpotifyAlbumDto>();
+            global::ExpressMapper.Mapper.Register<Copyright, CopyrightDto>();
+            global::ExpressMapper.Mapper.Register<Artist, ArtistDto>();
+            global::ExpressMapper.Mapper.Register<ExternalIds, ExternalIdsDto>();
+            global::ExpressMapper.Mapper.Register<ExternalUrls, ExternalUrlsDto>();
+            global::ExpressMapper.Mapper.Register<Tracks, TracksDto>();
+            global::ExpressMapper.Mapper.Register<Image, ImageDto>();
+            global::ExpressMapper.Mapper.Register<Item, ItemDto>();
 
             //UltraMapper don't need configuration, but that's ok
             var ultraConfig = new UltraMapper.Configuration(config =>
@@ -102,35 +101,35 @@ namespace ObjectsMapperBenchmark
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithAgileMapper()
+        public SpotifyAlbum AgileMapper()
         {
             var spotifyalbum = AgileObjects.AgileMapper.Mapper.Map(_spotifyAlbumDto).ToANew<SpotifyAlbum>();
             return spotifyalbum;
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithTinyMapper()
+        public SpotifyAlbum TinyMapper()
         {
-            var spotifyAlbum = TinyMapper.Map<SpotifyAlbum>(_spotifyAlbumDto);
+            var spotifyAlbum = Nelibur.ObjectMapper.TinyMapper.Map<SpotifyAlbum>(_spotifyAlbumDto);
             return spotifyAlbum;
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithExpressMapper()
+        public SpotifyAlbum ExpressMapper()
         {
-            var spotifyalbum = ExpressMapper.Mapper.Map<SpotifyAlbumDto, SpotifyAlbum>(_spotifyAlbumDto);
+            var spotifyalbum = global::ExpressMapper.Mapper.Map<SpotifyAlbumDto, SpotifyAlbum>(_spotifyAlbumDto);
             return spotifyalbum;
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithAutoMapper()
+        public SpotifyAlbum AutoMapper()
         {
             var spotifyalbum = _autoMapper.Map<SpotifyAlbum>(_spotifyAlbumDto);
             return spotifyalbum;
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithManualMapping()
+        public SpotifyAlbum ManualMapping()
         {
             //Generated by MappingGenerator
             var spotifyalbum = _spotifyAlbumDto.Map();
@@ -138,14 +137,14 @@ namespace ObjectsMapperBenchmark
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithMapster()
+        public SpotifyAlbum Mapster()
         {
             var spotifyalbum = _spotifyAlbumDto.Adapt<SpotifyAlbum>();
             return spotifyalbum;
         }
 
         [Benchmark]
-        public SpotifyAlbum MapWithUltraMapper()
+        public SpotifyAlbum UltraMapper()
         {
             var mapper = new UltraMapper.Mapper();
             var spotifyalbum = mapper.Map<SpotifyAlbumDto, SpotifyAlbum>(_spotifyAlbumDto);
