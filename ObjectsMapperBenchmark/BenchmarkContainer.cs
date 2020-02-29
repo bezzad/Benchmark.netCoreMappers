@@ -77,9 +77,28 @@ namespace ObjectsMapperBenchmark
             ExpressMapper.Mapper.Register<Image, ImageDto>();
             ExpressMapper.Mapper.Register<Item, ItemDto>();
 
+            //UltraMapper don't need configuration, but that's ok
+            var ultraConfig = new UltraMapper.Configuration(config =>
+            {
+                config.MapTypes<SpotifyAlbumDto, SpotifyAlbum>();
+                config.MapTypes<CopyrightDto, Copyright>();
+                config.MapTypes<ArtistDto, Artist>();
+                config.MapTypes<ExternalIdsDto, ExternalIds>();
+                config.MapTypes<ExternalUrlsDto, ExternalUrls>();
+                config.MapTypes<TracksDto, Tracks>();
+                config.MapTypes<ImageDto, Image>();
+                config.MapTypes<ItemDto, Item>();
+                config.MapTypes<SpotifyAlbum, SpotifyAlbumDto>();
+                config.MapTypes<Copyright, CopyrightDto>();
+                config.MapTypes<Artist, ArtistDto>();
+                config.MapTypes<ExternalIds, ExternalIdsDto>();
+                config.MapTypes<ExternalUrls, ExternalUrlsDto>();
+                config.MapTypes<Tracks, TracksDto>();
+                config.MapTypes<Image, ImageDto>();
+                config.MapTypes<Item, ItemDto>();
+            });
             //Mapster don't need configuration
             //AgileMapper don't need configuration
-            //UltraMapper don't need configuration
         }
 
         [Benchmark]
